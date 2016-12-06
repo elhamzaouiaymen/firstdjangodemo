@@ -20,6 +20,4 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^music/', include("music.urls")),
-    url(r'^authentification/', include("authentification.urls")),
-    url(r'^user/', include("user.urls"))
 ]

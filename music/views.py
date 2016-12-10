@@ -1,17 +1,19 @@
 from django.http import HttpResponse
 from .models import  Album
-from django.template import loader
+from django.http import Http404
+from django.shortcuts import render
 
 
 
 def index(request):
     all_Albums = Album.objects.all()
-    template = loader.get_template('music/index.html')
-    context = {
-        'all_albums' : all_Albums
-    }
-    return HttpResponse(template.render(context,request))
+    context = {'all_albums' : all_Albums}
+    return render(request,'music/index.html',context)
 
 def detail(request,album_id):
-    return HttpResponse("<h2>Details of "+str(album_id)+"</h2>")
+    try:
+        album = Album.objects.get(pk=album_id)
+    except Album.DoesNotExist:
+        raise  Http404("The album you are looking for does not exist anymore !")
+    return render(request, 'music/detail.html', {'album': album})
 

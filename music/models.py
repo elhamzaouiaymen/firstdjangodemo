@@ -13,6 +13,7 @@ class Song(models.Model):
     album = models.ForeignKey(Album,on_delete=models.CASCADE) #cascade means when you delete the parent model, this child model with be deleted too
     file_type = models.CharField(max_length=5)
     song_title = models.CharField(max_length=250)
+    is_favourite=models.BooleanField(default=False)
 
     def __str__(self):
         return self.song_title
